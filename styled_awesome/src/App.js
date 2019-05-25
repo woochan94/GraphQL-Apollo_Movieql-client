@@ -1,5 +1,5 @@
 import React from 'react';
-import styled, {createGlobalStyle, css, keyframes} from "styled-components";
+import styled, {createGlobalStyle, css} from "styled-components";
 import "./App.css";
 
 const GlobalStyle = createGlobalStyle`
@@ -9,18 +9,12 @@ const GlobalStyle = createGlobalStyle`
   }
 `;
 
-function App() {
-  return (
-    <React.Fragment>
-      <GlobalStyle />
-      <Container>
-        <Button success>Hello</Button>
-        <Button danger rotationTime={10}>Hello</Button>
-        <Anchor href="http://google.com">Go to Google</Anchor>
-      </Container>
-    </React.Fragment>
-  );
-}
+const awesomeCard = css`
+  box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0,0,0,0.08);
+  background-color: white; 
+  border-radius: 10px; 
+  padding: 20px;
+`;
 
 const Container = styled.div`
   height: 100vh;
@@ -28,37 +22,23 @@ const Container = styled.div`
   background-color: pink;
 `;
 
-const Button = styled.button`
-  border-radius: 50px; 
-  padding: 5px; 
-  min-width: 120px; 
-  color: white; 
-  font-weight: 600; 
-  -webkit-appearance: none; 
-  cursor: pointer;
-  &:active,
-  &:focus {
-    outline: none;
-  }
-  background-color: ${props => props.danger ? "#e74c3c" : "#2ecc71"}
-  ${props => {
-    if(props.danger) {
-      return css `animation: ${rotation} ${props.rotationTime}s linear infinite`;
-    }
-  }}
+const Input = styled.input.attrs({
+  required: true
+})`
+  border: none;
+  margin-left: 5px;
+  ${awesomeCard}
 `;
 
-const Anchor = styled(Button.withComponent("a"))`
-  text-decoration: none;
-`;
-
-const rotation = keyframes`
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-`;
+function App() {
+  return (
+    <React.Fragment>
+      <GlobalStyle />
+      <Container>
+        <Input placeholder="hello" />
+      </Container>
+    </React.Fragment>
+  );
+}
 
 export default App;
